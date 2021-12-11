@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">BooksApp</string>
+    <string name="login">Login</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in </string>
+    <string name="action_register">Register </string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid email</string>
+    <string name="invalid_password">Password must be longer than 5 chars</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="register">Register</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="have_an_account_log_in">Have an account? Log in!</string>
+    <string name="RegisterFailed">Register error!</string>
+    <string name="RegisterSuccess">Registered successfully!</string>
+    <string name="PasswordsDontMatch">Passwords do not match</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register!</string>
+</resources>
