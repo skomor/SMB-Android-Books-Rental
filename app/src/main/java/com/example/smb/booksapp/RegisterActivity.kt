@@ -35,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.editTextEmailAddress
         val password = binding.editTextPassword
         val passwordRepeat = binding.editTextPassword2
+        val nick = binding.name
         val registerBtn = binding.registerBtn
         val loading = binding.loading
         val goToLoginTextView = binding.haveAnAccountLink
@@ -95,7 +96,8 @@ class RegisterActivity : AppCompatActivity() {
         }
         passwordRepeat.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-               registerViewModel.register(email.text.toString(), password = password.text.toString())
+               registerViewModel.register(email.text.toString(),
+                   password = password.text.toString(),nick.text.toString())
                 return@setOnEditorActionListener true
             }
             false
@@ -106,8 +108,6 @@ class RegisterActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
             finish()
         }
-
-
     }
 
     private fun showRegisterSuccess(registerSuccess: Int) {

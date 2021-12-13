@@ -69,6 +69,8 @@ class LoginActivity : AppCompatActivity() {
                 updateUiWithUser(loginResult.success)
 
                 setResult(Activity.RESULT_OK)
+                val intentDrugieActivity = Intent(this, MainActivity::class.java)
+                startActivity(intentDrugieActivity)
                 finish()
             }
         })

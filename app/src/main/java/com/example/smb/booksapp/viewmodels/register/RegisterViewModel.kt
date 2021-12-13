@@ -15,9 +15,9 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
     private val _registerResult = MutableLiveData<RegisterResult>()
     val registerResult: LiveData<RegisterResult> = _registerResult
 
-    fun register(username: String, password: String) {
+    fun register(username: String, password: String, nick:String) {
        registerRepository
-            .register(username, password){ result ->
+            .register(username, password,nick){ result ->
                 if(result is Success)
                     _registerResult.value = RegisterResult(true)
                 else _registerResult.value = RegisterResult(false,result.toString() )

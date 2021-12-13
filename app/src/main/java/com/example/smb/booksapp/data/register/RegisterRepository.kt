@@ -8,8 +8,9 @@ class RegisterRepository(val dataSource: RegisterDataSource) {
     fun register(
         username: String,
         password: String,
+        nick:String,
         myCallback: (result: Result<FirebaseUser>) -> Unit
     ) {
-        dataSource.register(username, password, myCallback);
+        dataSource.register(username, password,nick, myCallback);
     }
 }
