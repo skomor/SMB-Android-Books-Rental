@@ -56,6 +56,8 @@ class RegisterActivity : AppCompatActivity() {
                     password.error = getString(registerState.passwordError)
                 if (registerState.passwordRepeatError != null)
                     passwordRepeat.error = getString(registerState.passwordRepeatError)
+                if (registerState.nickError != null)
+                    nick.error = getString(registerState.nickError)
             })
 
         registerViewModel.registerResult.observe(this, Observer {
@@ -78,26 +80,48 @@ class RegisterActivity : AppCompatActivity() {
             registerViewModel.registerDataChanged(
                 email.text.toString(),
                 password.text.toString(),
-                passwordRepeat.text.toString()
+                passwordRepeat.text.toString(),
+                nick.text.toString()
             )
         }
         password.afterTextChanged {
             registerViewModel.registerDataChanged(
                 email.text.toString(),
                 password.text.toString(),
-                passwordRepeat.text.toString()
+                passwordRepeat.text.toString(),
+                nick.text.toString()
             )}
         passwordRepeat.afterTextChanged {
             registerViewModel.registerDataChanged(
                 email.text.toString(),
                 password.text.toString(),
-                passwordRepeat.text.toString()
+                passwordRepeat.text.toString(),
+                nick.text.toString()
+            )
+        }
+
+        nick.afterTextChanged {
+            registerViewModel.registerDataChanged(
+                email.text.toString(),
+                password.text.toString(),
+                passwordRepeat.text.toString(),
+                nick.text.toString()
             )
         }
         passwordRepeat.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                registerViewModel.register(email.text.toString(),
-                   password = password.text.toString(),nick.text.toString())
+                   password = password.text.toString(),
+                   nick.text.toString())
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+        nick.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+               registerViewModel.register(email.text.toString(),
+                   password = password.text.toString(),
+                   nick.text.toString())
                 return@setOnEditorActionListener true
             }
             false

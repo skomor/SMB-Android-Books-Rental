@@ -24,13 +24,15 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
         }
     }
 
-    fun registerDataChanged(email: String, pass: String, passwordRepeat: String) {
+    fun registerDataChanged(email: String, pass: String, passwordRepeat: String, nick: String) {
         if (!isUserNameValid(email)) {
             _registerForm.value = RegisterFormState(emailError = R.string.invalid_username)
         } else if (!isPasswordValid(pass)) {
             _registerForm.value = RegisterFormState(passwordError = R.string.invalid_password)
         } else if (passwordRepeat != pass ) {
             _registerForm.value = RegisterFormState(passwordRepeatError = R.string.PasswordsDontMatch)
+        }else if(nick.length<5){
+            _registerForm.value = RegisterFormState(nickError = R.string.ShortNickaname)
         } else {
             _registerForm.value = RegisterFormState(isDataValid = true)
         }

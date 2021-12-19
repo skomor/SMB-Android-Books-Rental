@@ -28,6 +28,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
+    public override fun onStart() {
+        super.onStart()
+        if (loginViewModel.isLoggedIn()) {
+            runMainActivity();
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,6 +51,10 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
+
+        if (loginViewModel.isLoggedIn()) {
+            runMainActivity();
+        }
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -67,11 +78,7 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-
-                setResult(Activity.RESULT_OK)
-                val intentDrugieActivity = Intent(this, MainActivity::class.java)
-                startActivity(intentDrugieActivity)
-                finish()
+                runMainActivity();
             }
         })
 
@@ -112,11 +119,16 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+    private fun runMainActivity() {
+        setResult(Activity.RESULT_OK)
+        val intentDrugieActivity = Intent(this, MainActivity::class.java)
+        startActivity(intentDrugieActivity)
+        finish()
+    }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

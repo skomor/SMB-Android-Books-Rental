@@ -28,6 +28,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             }
         }
     }
+    public fun isLoggedIn():Boolean
+    {
+        return loginRepository.isLoggedIn
+    }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {

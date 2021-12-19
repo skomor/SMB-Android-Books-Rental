@@ -1,26 +1,25 @@
 package com.example.smb.booksapp.data.login
 
 import com.example.smb.booksapp.data.Result
-import com.example.smb.booksapp.data.model.LoggedInUser
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class LoginRepository(val dataSource: LoginDataSource) {
-
 
     var user: FirebaseUser? = null
         private set
 
     val isLoggedIn: Boolean
-        get() = user != null
+        get() =  dataSource.iSLoggedIn() && user != null
 
     init {
         user = null
+        if(dataSource.iSLoggedIn())
+            user = dataSource.getCurrUser();
     }
 
     fun logout() {
-        user = null
         dataSource.logout()
+        user = null
     }
 
     fun login(

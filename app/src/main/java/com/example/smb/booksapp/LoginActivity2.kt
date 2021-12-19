@@ -107,7 +107,6 @@ class LoginActivity2 : AppCompatActivity() {
 
     private fun runMainActivity() {
         val intentDrugieActivity = Intent(this, MainActivity::class.java)
-        //intentDrugieActivity.putExtra("userInput1", str)
         startActivity(intentDrugieActivity)
     }
 }

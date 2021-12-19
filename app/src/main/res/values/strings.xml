@@ -47,4 +47,15 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="ShortNickaname">To short nickname</string>
+    <string name="descripiton">Descripiton</string>
+    <string name="BookTitleError">Book has to have a title</string>
+    <string name="DescriptionError">Description to short</string>
+    <string name="AuthorNameError">Specify author name</string>
+    <string name="TagsError">Select at least two tags</string>
+    <string name="picError">Add picture of book!</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="SpecifyLoc">Specify your events location</string>
+    <string name="notLong">not long enough</string>
+    <string name="ValidNameError">Not valid name</string>
 </resources>
