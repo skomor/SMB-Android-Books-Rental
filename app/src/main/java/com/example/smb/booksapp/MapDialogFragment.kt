@@ -1,5 +1,7 @@
 package com.example.smb.booksapp
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +18,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.location.Geocoder
+import androidx.core.app.ActivityCompat
 
 
-class MapDialogFragment(private val userInfoViewModel: UserInfoViewModel): BottomSheetDialogFragment(), OnMapReadyCallback {
+class MapDialogFragment(private val userInfoViewModel: UserInfoViewModel) :
+    BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentSetMarkerSheetBinding
-    val markers:MutableList<Marker> = mutableListOf()
+    val markers: MutableList<Marker> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +33,7 @@ class MapDialogFragment(private val userInfoViewModel: UserInfoViewModel): Botto
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSetMarkerSheetBinding.inflate(inflater, container, false)
-        var setlocationBtn = binding.SetLocationButton;
+        val setlocationBtn = binding.SetLocationButton;
         var mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
@@ -42,14 +46,16 @@ class MapDialogFragment(private val userInfoViewModel: UserInfoViewModel): Botto
 
     private fun saveAndDismiss(): View.OnClickListener? {
         return View.OnClickListener {
-            val gcd = Geocoder( context)
-            var lng = this.markers.first().position.longitude
-            var lat = this.markers.first().position.latitude
+            val gcd = Geocoder(context)
+            var lng = this.markers.last().position.longitude
+            var lat = this.markers.last().position.latitude
             val addresses = gcd.getFromLocation(lat, lng, 1)
             if (addresses.size > 0) {
-                userInfoViewModel.locationChange(this.markers.first(), addresses[0].locality)
+                userInfoViewModel.locationChange(this.markers.last(),
+                    addresses[0].locality + " " + addresses[0].postalCode)
             } else {
-                userInfoViewModel.locationChange(this.markers.first(),
+                userInfoViewModel.locationChange(
+                    this.markers.last(),
                     "Unknown address at: $lng, $lat"
                 )
             }
@@ -59,22 +65,34 @@ class MapDialogFragment(private val userInfoViewModel: UserInfoViewModel): Botto
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val sydney = LatLng(-33.852, 151.211)
+        val warsaw = LatLng(52.237049, 21.017532)
 
-        val probablyMarker =  googleMap.addMarker(
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            googleMap.isMyLocationEnabled = true;
+        }
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(warsaw, 5F));
+        val probablyMarker = googleMap.addMarker(
             MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney")
+                .position(warsaw)
+                .title("Warsaw")
         )
         if (probablyMarker != null) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(warsaw))
             markers.add(probablyMarker)
         }
         googleMap.setOnMapClickListener {
             for (marker in markers) {
                 marker.remove()
             }
-            val marker =  googleMap.addMarker(
+            val marker = googleMap.addMarker(
                 MarkerOptions()
                     .position(it)
             )

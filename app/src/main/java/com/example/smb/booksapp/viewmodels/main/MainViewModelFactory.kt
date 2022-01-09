@@ -16,8 +16,7 @@ class MainViewModelFactory : ViewModelProvider.Factory{
                 mainRepository = MainRepository(
                     dataSource = MainDataSource(),
                     tagsDataSource = TagsDataSource()
-                ),
-                userRepository = UserRepository(UserDataSource())
+                )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

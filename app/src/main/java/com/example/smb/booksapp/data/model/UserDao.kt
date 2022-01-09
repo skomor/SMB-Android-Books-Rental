@@ -7,7 +7,8 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class UserDao(
     val email: String? = null,
     val description: String? = null,
-    val location: String? = null
+    val locationLat: String? = null,
+    val locationLog: String? = null
 ){
 
     @Exclude
@@ -15,7 +16,8 @@ data class UserDao(
         return mapOf(
             "email" to email,
             "description" to description,
-            "location" to location
+            "locationLat" to locationLat,
+            "locationLog" to locationLog
         )
     }
 }

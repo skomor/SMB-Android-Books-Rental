@@ -31,6 +31,9 @@ class TagsViewModel(private val tagsRepository: TagsRepository) : ViewModel() {
         tagsRepository.dataLoadedCallback = {
             _loadDataResult.value = it
             Log.e("tut",it.toString())
+            tagsRepository.getUserTags()
+        }
+        tagsRepository.userDataLoadedCallback = {
             _tags.value = tagsRepository.combinedTags;
         }
     }

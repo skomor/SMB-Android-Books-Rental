@@ -58,4 +58,6 @@
     <string name="SpecifyLoc">Specify your events location</string>
     <string name="notLong">not long enough</string>
     <string name="ValidNameError">Not valid name</string>
+    <string name="preference_file_key">com.example.booksapp.23423</string>
+    <string name="FileList">FileList</string>
 </resources>

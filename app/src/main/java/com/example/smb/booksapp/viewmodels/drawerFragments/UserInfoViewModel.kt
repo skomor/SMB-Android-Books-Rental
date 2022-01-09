@@ -12,11 +12,6 @@ import com.example.smb.booksapp.data.drawerFragments.UserRepository
 import com.example.smb.booksapp.data.model.UserDao
 import com.google.android.gms.maps.model.Marker
 import com.google.firebase.auth.FirebaseUser
-import android.location.Address
-
-import java.util.Locale
-
-import android.location.Geocoder
 import android.util.Log
 
 
@@ -25,36 +20,38 @@ class UserInfoViewModel(private val userRepository: UserRepository) : ViewModel(
     private var _marker: Marker? = null
     private val _userForm = MutableLiveData<UserFormState>()
     val userFormState: LiveData<UserFormState> = _userForm
-    var _markerString= MutableLiveData<String>()
+    private var _markerString = MutableLiveData<String>()
     val markerString: LiveData<String> = _markerString
 
-    fun saveUserData(name: String, desc: String, imageUri: Uri?, callback: (Result<Unit>) -> Unit) {
-        userRepository.setData(name, desc, imageUri) {
+    fun saveUserData(name: String, desc: String, imageUri: Uri?, locationLat: String?,
+                     locationLog: String? , callback: (Result<Unit>) -> Unit) {
+        userRepository.setData(name, desc, imageUri, locationLat, locationLog) {
             callback.invoke(it)
         }
     }
 
     fun userDataChanged(nick: String, desc: String) {
-        Log.e("tut",nick.toString() + desc.toString() )
+        Log.e("tut", nick.toString() + desc.toString())
         if (nick.length < 3) {
             _userForm.value = UserFormState(nickError = (R.string.ValidNameError))
         } else if (desc.length < 3) {
             _userForm.value = UserFormState(descriptionError = (R.string.notLong))
-        }else if(_marker == null){
+        } else if (_marker == null) {
             _userForm.value = UserFormState(locationError = R.string.SpecifyLoc)
         } else {
             _userForm.value = UserFormState(isDataValid = true)
         }
     }
 
-    fun locationChange(marker: Marker, cityName:String) {
+    fun locationChange(marker: Marker, cityName: String) {
         _marker = marker;
-        if(_marker == null) {
+        if (_marker == null) {
             _userForm.value = UserFormState(locationError = R.string.SpecifyLoc)
 
         }
-        if(_marker != null) {
-            _userForm.value = UserFormState(isDataValid = true)
+        if (_marker != null) {
+            if (_userForm.value == UserFormState(locationError = R.string.SpecifyLoc))
+                _userForm.value = UserFormState(isDataValid = true)
             _markerString.value = cityName;
         }
     }

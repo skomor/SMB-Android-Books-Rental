@@ -1,22 +1,17 @@
 package com.example.smb.booksapp.viewmodels.main
 
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.smb.booksapp.R
 import com.example.smb.booksapp.data.Result
-import com.example.smb.booksapp.data.drawerFragments.UserRepository
 import com.example.smb.booksapp.data.main.MainRepository
 import com.example.smb.booksapp.data.model.Author
 import com.example.smb.booksapp.data.model.Book
 import com.example.smb.booksapp.data.model.Tag
-import com.example.smb.booksapp.viewmodels.login.LoginResult
 
-
-class MainViewModel(private val mainRepository: MainRepository,
-                    private val userRepository: UserRepository) : ViewModel() {
+class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     private lateinit var _callback: () -> Unit
 
@@ -32,25 +27,19 @@ class MainViewModel(private val mainRepository: MainRepository,
     val tags: LiveData<MutableList<Tag>> = _tags
     val authors: LiveData<MutableList<Author>> = _authors
     val books: LiveData<MutableList<Book>> = _books
-    private val _userimage = MutableLiveData<Bitmap?>()
-
-    val userimage: LiveData<Bitmap?> = _userimage
 
     init{
-        userRepository.dataLoadedCallback ={}
+
         _tags.value = mainRepository.tags;
         _authors.value = mainRepository.authors;
         _books.value = mainRepository.books;
+
         mainRepository.loaded = {
             _tags.value = mainRepository.tags;
             _authors.value = mainRepository.authors;
         }
         mainRepository.booksLoaded = {
             _books.value = mainRepository.books;
-        }
-        userRepository.getUserPic {
-            if (it is Result.Success)
-                _userimage.value = it.data
         }
     }
 
@@ -74,7 +63,6 @@ class MainViewModel(private val mainRepository: MainRepository,
             callback.invoke()
         }
     }
-
 
     fun addBook(book: Book) {
         mainRepository.addBook(book) { result ->
@@ -107,6 +95,4 @@ class MainViewModel(private val mainRepository: MainRepository,
             _addingForm.value = AddingFormState(isDataValid = true)
         }
     }
-
-
 }

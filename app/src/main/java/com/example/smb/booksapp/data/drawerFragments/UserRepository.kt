@@ -11,8 +11,9 @@ import java.io.IOException
 class UserRepository(private val dataSource: UserDataSource) {
 
 
-    fun setData(name: String, desc: String, imageUri: Uri?, callback: (Result<Unit>) -> Unit) {
-        dataSource.updateUser(name,desc,imageUri,callback);
+    fun setData(name: String, desc: String, imageUri: Uri?, locationLat: String?,
+                locationLog: String?,  callback: (Result<Unit>) -> Unit) {
+        dataSource.updateUser(name,desc,imageUri,locationLat,locationLog,callback);
     }
 
     fun getUserPic(callback: (Result<Bitmap>) -> Unit) {

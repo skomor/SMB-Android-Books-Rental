@@ -24,6 +24,9 @@ import com.example.smb.booksapp.data.Result
 import com.example.smb.booksapp.viewmodels.main.AddingFormState
 import com.example.smb.booksapp.viewmodels.main.MainViewModel
 import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
+import com.example.smb.booksapp.viewmodels.drawerFragments.UserInfoViewModel
+import com.example.smb.booksapp.viewmodels.drawerFragments.UserInfoViewModelFactory
 
 
 class BottomAddItemDialog(private val mainViewModel: MainViewModel) : BottomSheetDialogFragment() {
@@ -36,6 +39,7 @@ class BottomAddItemDialog(private val mainViewModel: MainViewModel) : BottomShee
     val selectedTags = mutableListOf<Tag>()
     lateinit var authorsToComplate: Array<String>
     lateinit var adapter: ArrayAdapter<String>
+    private val userModel: UserInfoViewModel by activityViewModels { UserInfoViewModelFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -154,7 +158,6 @@ class BottomAddItemDialog(private val mainViewModel: MainViewModel) : BottomShee
             alertDialog.show();
         }
 
-
         addbtn.setOnClickListener {
             mainViewModel.addBook(
                 Book(
@@ -163,9 +166,11 @@ class BottomAddItemDialog(private val mainViewModel: MainViewModel) : BottomShee
                     authorSpinner.text.toString(),
                     this.imageUri,
                     null,
-                    this.selectedTags.toList()
+                    this.selectedTags.toList(),
+                    userModel.userAdv?.locationLat,
+                    userModel.userAdv?.locationLog,
                 )
-            )// take a note that this is in one block
+            )
             mainViewModel.addingResult.observe(this@BottomAddItemDialog,
                 Observer {
                     if (it is Result.Success) {

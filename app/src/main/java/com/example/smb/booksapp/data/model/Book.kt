@@ -12,6 +12,7 @@ data class Book(
     val tags: List<Tag>? = null,
     val userId: String? = null,
     val bookId: String? = null,
-
+    val lat: String? = null,
+    val log: String? =null
 ) {
 }

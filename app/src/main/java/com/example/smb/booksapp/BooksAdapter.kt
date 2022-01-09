@@ -27,7 +27,7 @@ class BooksAdapter (private val listener: OnItemClickListener
     override fun onBindViewHolder(holder: BooksAdapter.BookViewHolder, position: Int) {
         val currentItem = bookItems[position]
 
-        //holder.imageView.setImageBitmap(currentItem.picBmap)
+        holder.imageView.setImageBitmap(currentItem.picBmap)
         holder.textView1.text = currentItem.author
         holder.textView2.text = currentItem.name
     }

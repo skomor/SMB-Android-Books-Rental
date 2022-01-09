@@ -22,4 +22,10 @@
         android:name="com.example.smb.booksapp.UserInfoFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_user_info" />
+
+    <fragment
+        android:id="@+id/nav_audio"
+        android:name="com.example.smb.booksapp.AudiobooksFragment"
+        android:label="Your audiobooks"
+        tools:layout="@layout/fragment_audiobooks" />
 </navigation>

@@ -171,7 +171,7 @@ fun getUserDataAndSetupAuthStateListener(notLoggedCallback: () -> Unit): Firebas
                         if(book.pic != null){
                             var bmap = getImageBitmap(book.pic)
                             books.add(Book(book.name, book.description, book.author,
-                                Uri.parse(book.pic),   bmap , tags,book.userId,dsnap.key))
+                                Uri.parse(book.pic), bmap , tags,book.userId,dsnap.key))
                         }
                     }
                 }

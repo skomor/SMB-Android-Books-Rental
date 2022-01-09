@@ -25,16 +25,11 @@ import com.example.smb.booksapp.databinding.FragmentUserInfoBinding
 
 class UserInfoFragment : Fragment() {
 
-/*
-    private lateinit var userInfoViewModel: UserInfoViewModel
-*/
     private var _binding: FragmentUserInfoBinding? = null
     private val binding get() = _binding!!
     var imageUri: Uri? = null
 
     private val userInfoViewModel: UserInfoViewModel by activityViewModels { UserInfoViewModelFactory() }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,11 +51,8 @@ class UserInfoFragment : Fragment() {
         val locationButton = binding.SetLocationButton;
         val currLocation = binding.currLoc
 
-      /*  userInfoViewModel = ViewModelProvider(this, UserInfoViewModelFactory())
-            .get(UserInfoViewModel::class.java)*/
         userInfoViewModel.userimage.observe(viewLifecycleOwner, Observer{
-           // if (it != null)
-           //     picture.setImageBitmap(it)
+
         })
         userInfoViewModel.markerString.observe(viewLifecycleOwner, Observer {
             currLocation.text = it;
@@ -76,7 +68,7 @@ class UserInfoFragment : Fragment() {
             userInfoViewModel.saveUserData(
                 nickname.text.toString(),
                 description.text.toString(),
-                imageUri
+                imageUri, "", ""
             ) {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
             }

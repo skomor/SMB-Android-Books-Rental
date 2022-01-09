@@ -23,6 +23,8 @@ import com.example.smb.booksapp.viewmodels.main.MainViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
+import com.example.smb.booksapp.viewmodels.drawerFragments.UserInfoViewModel
+import com.example.smb.booksapp.viewmodels.drawerFragments.UserInfoViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -35,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    public lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: MainViewModel
+    lateinit var userInfoViewModel: UserInfoViewModel
 
     public override fun onStart() {
         super.onStart()
@@ -56,7 +59,8 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProvider(this, MainViewModelFactory())
             .get(MainViewModel::class.java)
-
+        userInfoViewModel = ViewModelProvider(this, UserInfoViewModelFactory())
+            .get(UserInfoViewModel::class.java)
 
         if (!mainViewModel.isLogged()) {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -67,9 +71,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-
-      /*  val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync(this)*/
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -85,12 +86,14 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_audio
             ), drawerLayout
         )
-        mainViewModel.userimage.observe(this, Observer {
-            if (mainViewModel.userimage.value != null)
-                image.setImageBitmap(mainViewModel.userimage.value)
+        userInfoViewModel.userimage.observe(this, Observer {
+            if (userInfoViewModel.userimage.value != null){
+                image.setImageBitmap(null)
+                image.setImageBitmap(userInfoViewModel.userimage.value)
+            }
         })
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

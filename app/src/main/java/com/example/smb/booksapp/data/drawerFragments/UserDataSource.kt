@@ -53,7 +53,8 @@ class UserDataSource {
         }
     }
 
-    fun updateUser(name: String, desc: String, imageUri: Uri?, callback: (Result<Unit>) -> Unit) {
+    fun updateUser(name: String, desc: String, imageUri: Uri?, locationLat: String?,
+                   locationLog: String?, callback: (Result<Unit>) -> Unit) {
         val user = auth.currentUser
         if (user != null) {
             if (imageUri != null) {
@@ -67,6 +68,8 @@ class UserDataSource {
             } else {
                 val profileUpdates = userProfileChangeRequest {
                     displayName = name
+
+
                 }
                 user.updateProfile(profileUpdates);
                 db.child("users").child(user.uid).child("description").setValue(desc)

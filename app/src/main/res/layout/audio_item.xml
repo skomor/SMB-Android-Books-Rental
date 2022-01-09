@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/container1">
+
+        <TextView
+            android:id="@+id/audioName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="145dp"
+            android:layout_toStartOf="@+id/pause" />
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_baseline_play_arrow_24"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/star"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@+id/pause"
+            android:background="@drawable/ic_baseline_star_24"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/pause"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/play"
+            android:background="@drawable/ic_baseline_pause_24" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
