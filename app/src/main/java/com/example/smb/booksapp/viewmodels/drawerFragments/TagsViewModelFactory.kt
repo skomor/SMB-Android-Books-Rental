@@ -10,9 +10,7 @@ class TagsViewModelFactory : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TagsViewModel::class.java)) {
             return TagsViewModel(
-                tagsRepository = TagsRepository(
-                    tagsDataSource = TagsDataSource()
-                )
+                tagsRepository = TagsRepository()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
