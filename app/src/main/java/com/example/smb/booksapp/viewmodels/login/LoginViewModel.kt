@@ -28,7 +28,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             }
         }
     }
-    public fun isLoggedIn():Boolean
+    fun isLoggedIn():Boolean
     {
         return loginRepository.isLoggedIn
     }

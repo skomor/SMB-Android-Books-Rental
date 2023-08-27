@@ -23,6 +23,7 @@ import com.example.smb.booksapp.viewmodels.main.MainViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
+import android.widget.TextView
 import com.example.smb.booksapp.viewmodels.drawerFragments.UserInfoViewModel
 import com.example.smb.booksapp.viewmodels.drawerFragments.UserInfoViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             .permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        mainViewModel = ViewModelProvider(this, MainViewModelFactory())
+        mainViewModel = ViewModelProvider(this, MainViewModelFactory( applicationContext))
             .get(MainViewModel::class.java)
         userInfoViewModel = ViewModelProvider(this, UserInfoViewModelFactory())
             .get(UserInfoViewModel::class.java)
@@ -82,21 +83,35 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        var image = navView.getHeaderView(0).findViewById<ImageView>(R.id.profilePicInNavHeader)
+        var textvie = this.findViewById<TextView>(R.id.navbarMail)
+
+
+        val image = navView.getHeaderView(0).findViewById<ImageView>(R.id.profilePicInNavHeader)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_audio
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_audio, R.id.booked
             ), drawerLayout
         )
         userInfoViewModel.userimage.observe(this, Observer {
+            textvie.text = userInfoViewModel.user?.email;
             if (userInfoViewModel.userimage.value != null){
                 image.setImageBitmap(null)
                 image.setImageBitmap(userInfoViewModel.userimage.value)
             }
         })
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val extras = intent.extras
+        if (extras != null)
+        {
+            val value: Boolean = extras["openAudios"] as Boolean
+            if(value){
+                navController.navigate(R.id.nav_audio)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

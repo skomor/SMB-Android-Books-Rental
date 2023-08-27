@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.BooksApp.AppWidget.Container"
+    android:theme="@style/Theme.BooksApp.AppWidgetContainer"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_height="match_parent">
+
+    <Button
+        style="@style/Widget.BooksApp.AppWidget.InnerView"
+        android:id="@+id/appwidget_Home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/appwidget_text"
+        android:maxWidth="20dp"
+        android:maxHeight="20dp"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:layout_margin="4dp"
+        android:contentDescription="@string/appwidget_text" />
+
+    <Button
+        android:id="@+id/appwidget_audio"
+        style="@style/Widget.BooksApp.AppWidget.InnerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="20dp"
+        android:maxHeight="20dp"
+        android:layout_margin="4dp"
+        android:text="@string/audio"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
+</LinearLayout>

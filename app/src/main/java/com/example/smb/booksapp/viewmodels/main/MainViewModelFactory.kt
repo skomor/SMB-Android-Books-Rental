@@ -1,22 +1,19 @@
 package com.example.smb.booksapp.viewmodels.main
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.smb.booksapp.data.drawerFragments.TagsDataSource
-import com.example.smb.booksapp.data.drawerFragments.UserDataSource
-import com.example.smb.booksapp.data.drawerFragments.UserRepository
-import com.example.smb.booksapp.data.main.MainDataSource
+import com.example.smb.booksapp.data.drawerFragments.TagsRepository
 import com.example.smb.booksapp.data.main.MainRepository
 
-class MainViewModelFactory : ViewModelProvider.Factory{
+class MainViewModelFactory(val context: Context) : ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(
                 mainRepository = MainRepository(
-                    dataSource = MainDataSource(),
-                    tagsDataSource = TagsDataSource()
-                )
+                ),
+                tagsRepo = TagsRepository(context)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -10,15 +10,23 @@
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:icon="@drawable/ic_baseline_abc_24"
+            android:title="Tags" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:icon="@drawable/ic_baseline_settings_applications_24"
+            android:title="Account settings" />
         <item
             android:id="@+id/nav_audio"
             android:icon="@drawable/ic_baseline_audiotrack_24"
             android:title="Your audios" />
+        <item
+            android:id="@+id/addedBooks"
+            android:icon="@drawable/ic_baseline_menu_book_24"
+            android:title="Added books" />
+        <item
+            android:id="@+id/booked"
+            android:icon="@drawable/ic_baseline_book_24"
+            android:title="Booked books" />
     </group>
 </menu>

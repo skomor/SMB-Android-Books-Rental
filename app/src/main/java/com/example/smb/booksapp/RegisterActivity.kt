@@ -60,6 +60,10 @@ class RegisterActivity : AppCompatActivity() {
                     nick.error = getString(registerState.nickError)
             })
 
+        registerBtn.setOnClickListener {
+            loading.visibility = View.VISIBLE
+            registerViewModel.register(email.text.toString(), password.text.toString(),nick.text.toString())
+        }
         registerViewModel.registerResult.observe(this, Observer {
             val registerResult = it ?: return@Observer
 

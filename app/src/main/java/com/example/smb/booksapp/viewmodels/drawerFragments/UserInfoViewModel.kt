@@ -1,6 +1,7 @@
 package com.example.smb.booksapp.viewmodels.drawerFragments
 
 import android.graphics.Bitmap
+import android.location.Geocoder
 import android.net.Uri
 import com.example.smb.booksapp.data.Result
 
@@ -15,65 +16,83 @@ import com.google.firebase.auth.FirebaseUser
 import android.util.Log
 
 
-class UserInfoViewModel(private val userRepository: UserRepository) : ViewModel() {
+class UserInfoViewModel(private val userRepository: UserRepository) : ViewModel()
+{
 
-    private var _marker: Marker? = null
-    private val _userForm = MutableLiveData<UserFormState>()
-    val userFormState: LiveData<UserFormState> = _userForm
-    private var _markerString = MutableLiveData<String>()
-    val markerString: LiveData<String> = _markerString
+	private var _marker: Marker? = null
+	private val _userForm = MutableLiveData<UserFormState>()
+	private var _markerDisplayString = MutableLiveData<String>()
+	private val _loadDataResult = MutableLiveData<Result<Boolean>?>()
+	private val _userimage = MutableLiveData<Bitmap?>()
 
-    fun saveUserData(name: String, desc: String, imageUri: Uri?, locationLat: String?,
-                     locationLog: String? , callback: (Result<Unit>) -> Unit) {
-        userRepository.setData(name, desc, imageUri, locationLat, locationLog) {
-            callback.invoke(it)
-        }
-    }
+	val userFormState: LiveData<UserFormState> = _userForm
+	val markerString: LiveData<String> = _markerDisplayString
 
-    fun userDataChanged(nick: String, desc: String) {
-        Log.e("tut", nick.toString() + desc.toString())
-        if (nick.length < 3) {
-            _userForm.value = UserFormState(nickError = (R.string.ValidNameError))
-        } else if (desc.length < 3) {
-            _userForm.value = UserFormState(descriptionError = (R.string.notLong))
-        } else if (_marker == null) {
-            _userForm.value = UserFormState(locationError = R.string.SpecifyLoc)
-        } else {
-            _userForm.value = UserFormState(isDataValid = true)
-        }
-    }
+	var user: FirebaseUser? = null
+		get() = userRepository.user
+	var userAdv: UserDao? = null
+		get() = userRepository.userAdv;
 
-    fun locationChange(marker: Marker, cityName: String) {
-        _marker = marker;
-        if (_marker == null) {
-            _userForm.value = UserFormState(locationError = R.string.SpecifyLoc)
+	val loadResult: LiveData<Result<Boolean>?> = _loadDataResult
+	val userimage: LiveData<Bitmap?> = _userimage
 
-        }
-        if (_marker != null) {
-            if (_userForm.value == UserFormState(locationError = R.string.SpecifyLoc))
-                _userForm.value = UserFormState(isDataValid = true)
-            _markerString.value = cityName;
-        }
-    }
+	init
+	{
+		userRepository.dataLoadedCallback = {
+			_loadDataResult.value = it
+		}
+		userRepository.getUserPic {
+			if (it is Result.Success)
+				_userimage.value = it.data
+		}
+	}
 
-    private val _loadDataResult = MutableLiveData<Result<Boolean>?>()
-    val loadResult: LiveData<Result<Boolean>?> = _loadDataResult
-    private val _userimage = MutableLiveData<Bitmap?>()
-    val userimage: LiveData<Bitmap?> = _userimage
+	fun saveUserData(name: String, desc: String, imageUri: Uri?, callback: (Result<Unit>) -> Unit)
+	{
+		userRepository.updateUser(
+			name,
+			desc,
+			imageUri,
+			_marker?.position?.latitude.toString(),
+			_marker?.position?.longitude.toString()
+		) {
+			callback.invoke(it)
+		}
+	}
 
-    init {
-        userRepository.dataLoadedCallback = {
-            _loadDataResult.value = it
-        }
-        userRepository.getUserPic {
-            if (it is Result.Success)
-                _userimage.value = it.data
-        }
-    }
+	fun userDataChanged(nick: String, desc: String, location: String = "")
+	{
+		Log.e("tut", nick.toString() + desc.toString())
+		if (nick.length < 3)
+		{
+			_userForm.value = UserFormState(nickError = (R.string.ValidNameError))
+		}
+		else if (desc.length < 3)
+		{
+			_userForm.value = UserFormState(descriptionError = (R.string.notLong))
+		}
+		else if (location == "")
+		{
+			_userForm.value = UserFormState(locationError = R.string.SpecifyLoc)
+		}
+		else
+		{
+			_userForm.value = UserFormState(isDataValid = true)
+		}
+	}
 
-    var user: FirebaseUser? = null
-        get() = userRepository.user
-
-    var userAdv: UserDao? = null
-        get() = userRepository.userAdv;
+	fun changeLocation(marker: Marker, cityName: String)
+	{
+		_marker = marker;
+		if (_marker == null)
+		{
+			_userForm.value = UserFormState(locationError = R.string.SpecifyLoc)
+		}
+		if (_marker != null)
+		{
+			if (_userForm.value == UserFormState(locationError = R.string.SpecifyLoc))
+				_userForm.value = UserFormState(isDataValid = true)
+			_markerDisplayString.value = cityName;
+		}
+	}
 }

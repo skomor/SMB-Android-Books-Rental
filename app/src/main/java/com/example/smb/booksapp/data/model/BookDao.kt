@@ -8,8 +8,15 @@ data class BookDao(
     val description: String? = null,
     val author: String? = null,
     val pic: String? = null,
-    val tags: ArrayList<String>? = null,
-    val userId: String? = null
+    val tags: HashMap<String, Boolean>? = null,
+    val userId: String? = null,
+    val lat: String? = null,
+    val log: String? =null,
+    @field:JvmField
+    var isAvailable: Boolean = false,
+    @field:JvmField
+    var isRemoved: Boolean = false,
+    val bookerId: String? =null
 ){
 
     @Exclude
@@ -20,7 +27,12 @@ data class BookDao(
             "author" to author,
             "pic" to pic,
             "userId" to userId,
-            "tags" to tags
+            "tags" to tags,
+            "lat" to lat,
+            "log" to log,
+            "isAvailable" to isAvailable,
+            "isRemoved" to isRemoved,
+            "bookerId" to bookerId,
         )
     }
 }

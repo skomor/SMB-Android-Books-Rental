@@ -16,7 +16,7 @@
         android:src="@drawable/common_google_signin_btn_icon_dark" />
 
     <TextView
-        android:id="@+id/text_view_1"
+        android:id="@+id/text_view_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/image_view"
@@ -26,10 +26,10 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/text_view_2"
+        android:id="@+id/text_view_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_1"
+        android:layout_below="@id/text_view_2"
         android:layout_toEndOf="@id/image_view"
         android:text="Line 2" />
 </RelativeLayout>

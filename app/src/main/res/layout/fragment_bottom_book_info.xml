@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BottomBookInfoFragment">
+
+    <ImageView
+
+        android:id="@+id/bookImage"
+        android:layout_width="187dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="52dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bookNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toEndOf="@+id/bookImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bookAuthorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toEndOf="@+id/bookImage"
+        app:layout_constraintTop_toBottomOf="@+id/bookNameTextView" />
+
+    <TextView
+        android:id="@+id/descriptionOfBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:maxWidth="100dp"
+        android:maxHeight="90dp"
+        android:text="Description"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintStart_toEndOf="@+id/mapView"
+        app:layout_constraintTop_toBottomOf="@+id/bookAuthorTextView" />
+
+    <com.google.android.gms.maps.MapView
+        map:mapType="normal"
+        map:liteMode="true"
+        android:id="@+id/mapView"
+        android:layout_width="239dp"
+        android:layout_height="238dp"
+        android:layout_marginTop="16dp"
+        android:apiKey="@string/google_maps_key2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookImage" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:background="@color/teal_700"
+        android:text="Get this book!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toEndOf="@+id/mapView"
+        app:layout_constraintTop_toBottomOf="@+id/bookAuthorTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

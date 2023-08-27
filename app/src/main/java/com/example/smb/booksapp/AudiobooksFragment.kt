@@ -38,9 +38,9 @@ class AudiobooksFragment : Fragment(), AudioAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAudiobooksBinding.inflate(inflater, container, false)
-        binding.addfile.setOnClickListener {
+       /* binding.addfile.setOnClickListener {
             addfile()
-        }
+        }*/
         sharedpreferences = activity?.getSharedPreferences(
             getString(R.string.preference_file_key), Context.MODE_PRIVATE
         )!!

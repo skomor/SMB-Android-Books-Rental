@@ -28,4 +28,15 @@
         android:name="com.example.smb.booksapp.AudiobooksFragment"
         android:label="Your audiobooks"
         tools:layout="@layout/fragment_audiobooks" />
+    <fragment
+        android:id="@+id/addedBooks"
+        android:name="com.example.smb.booksapp.AddedBooksFragment"
+        android:label="Your books"
+        tools:layout="@layout/fragment_added_books" />
+
+    <fragment
+        android:id="@+id/booked"
+        android:name="com.example.smb.booksapp.BookedBooksFragment"
+        android:label="Booked books"
+        tools:layout="@layout/fragment_booked_books" />
 </navigation>

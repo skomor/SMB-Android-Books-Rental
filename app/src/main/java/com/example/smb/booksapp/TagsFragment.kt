@@ -33,7 +33,7 @@ class TagsFragment : Fragment(), TagsAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         tagsViewModel =
-            ViewModelProvider(this, TagsViewModelFactory()).get(TagsViewModel::class.java)
+            ViewModelProvider(this, TagsViewModelFactory(requireContext())).get(TagsViewModel::class.java)
 
         _binding = FragmentTagsBinding.inflate(inflater, container, false)
         val root: View = binding.root

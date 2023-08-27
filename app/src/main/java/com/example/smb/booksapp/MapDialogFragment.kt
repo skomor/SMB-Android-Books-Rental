@@ -50,13 +50,13 @@ class MapDialogFragment(private val userInfoViewModel: UserInfoViewModel) :
             var lng = this.markers.last().position.longitude
             var lat = this.markers.last().position.latitude
             val addresses = gcd.getFromLocation(lat, lng, 1)
-            if (addresses.size > 0) {
-                userInfoViewModel.locationChange(this.markers.last(),
+            if (addresses.size > 0 && addresses[0].locality != null  && addresses[0].postalCode != null) {
+                userInfoViewModel.changeLocation(this.markers.last(),
                     addresses[0].locality + " " + addresses[0].postalCode)
             } else {
-                userInfoViewModel.locationChange(
+                userInfoViewModel.changeLocation(
                     this.markers.last(),
-                    "Unknown address at: $lng, $lat"
+                    "Unknown0 address at: $lng, $lat"
                 )
             }
             this.dialog?.dismiss()

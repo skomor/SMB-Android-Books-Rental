@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/authorSpinner">
+        app:layout_constraintTop_toBottomOf="@+id/moverDontTouch">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/bookDescriptionInput"
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moverDontTouch" />
+        app:layout_constraintTop_toBottomOf="@+id/bookDescriptionMover" />
 
     <TextView
         android:id="@+id/tagSelector"
@@ -120,5 +120,5 @@
         android:padding="12dp"
         app:drawableRightCompat="@android:drawable/arrow_down_float"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookDescriptionMover" />
+        app:layout_constraintTop_toBottomOf="@+id/authorSpinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
